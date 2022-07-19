@@ -1,7 +1,7 @@
 # kazdream-task
-Aims
+### Aims
 
-## The aim of this exercise is to test your ability to write a working program in Go.
+### The aim of this exercise is to test your ability to write a working program in Go.
 
 • We are looking for you to demonstrate that you can write good solid code, and debug it to get a good working solution. We consider it preferable to have a good solution that is finished and works rather than half-written code that tries to be too clever.
 
@@ -17,7 +17,7 @@ Aims
 
  
 
-## Languages and Tools
+### Languages and Tools
 
 • The reference platform for the task is a Linux 64bit system. If you do not have access to such a platform you should implement it on a Linux or Windows environment of your choosing, however, you should be prepared to explain how your solution may need to be modified to run on the reference platform.
 
@@ -27,12 +27,12 @@ Aims
 
  
 
-## The Problem
+### The Problem
 
 Given the attached text file as an argument, your program will read the file, and output the 20 most frequently used words in the file in order, along with their frequency. The output should be the same to that of the following bash program:
 
  
 
-# #!/usr/bin/env bash
+### #!/usr/bin/env bash
 
 ```cat $1 | tr -cs 'a-zA-Z' '[\n*]' | grep -v "^$" | tr '[:upper:]' '[:lower:]'| sort | uniq -c | sort -nr | head -20```
