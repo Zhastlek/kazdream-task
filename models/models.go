@@ -1,5 +1,10 @@
 package models
 
+const (
+	FileName            = "mobydick.txt"
+	AmountWordsForPrint = 20
+)
+
 type Word struct {
 	Value  []byte
 	Amount int

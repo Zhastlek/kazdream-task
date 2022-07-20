@@ -9,13 +9,8 @@ import (
 	"unicode"
 )
 
-const (
-	fileName            = "mobydick.txt"
-	AmountWordsForPrint = 20
-)
-
 func App() {
-	data, err := ioutil.ReadFile(fileName)
+	data, err := ioutil.ReadFile(models.FileName)
 	if err != nil {
 		return
 	}
@@ -23,29 +18,27 @@ func App() {
 		return !unicode.IsLetter(c)
 	})
 	toLower(words)
-	SortByteSlices(words)
-	result := CountWords(words)
+	sortByteSlices(words)
+	result := countWords(words)
 	sort.Slice(result, func(i, j int) bool {
 		return result[i].Amount > result[j].Amount
 	})
-	PrintWords(result)
+	printWords(result)
 }
 
-func PrintWords(words []*models.Word) {
+func printWords(words []*models.Word) {
 	for i, word := range words {
-		if i == AmountWordsForPrint {
+		if i == models.AmountWordsForPrint {
 			break
 		}
-		sp := "   "
-		if word.Amount < 1000 {
-			sp = "    "
-		}
-		fmt.Printf("%s%d %s\n", sp, word.Amount, word.Value)
+		fmt.Printf("% 8d %s\n", word.Amount, word.Value)
 	}
 }
 
-func SortByteSlices(words [][]byte) {
-	sort.Slice(words, func(i, j int) bool { return bytes.Compare(words[i], words[j]) < 0 })
+func sortByteSlices(words [][]byte) {
+	sort.Slice(words, func(i, j int) bool {
+		return bytes.Compare(words[i], words[j]) < 0
+	})
 }
 
 func toLower(words [][]byte) {
@@ -54,22 +47,23 @@ func toLower(words [][]byte) {
 	}
 }
 
-func CountWords(words [][]byte) []*models.Word {
-	var wrodsWithAmount []*models.Word
+func countWords(words [][]byte) []*models.Word {
+	wrodsWithAmount := []*models.Word{}
 	count := 1
 	for i := range words {
-		if i != len(words)-1 {
-			// if bytes.Compare(words[i], words[i+1]) == 0 {
-			if bytes.Equal(words[i], words[i+1]) {
-				count++
-			} else {
-				w := &models.Word{
-					Value:  words[i],
-					Amount: count,
-				}
-				wrodsWithAmount = append(wrodsWithAmount, w)
-				count = 1
+		if i == len(words)-1 {
+			break
+		}
+		if bytes.Compare(words[i], words[i+1]) == 0 {
+			// if bytes.Equal(words[i], words[i+1]) {
+			count++
+		} else {
+			w := &models.Word{
+				Value:  words[i],
+				Amount: count,
 			}
+			wrodsWithAmount = append(wrodsWithAmount, w)
+			count = 1
 		}
 	}
 	return wrodsWithAmount
