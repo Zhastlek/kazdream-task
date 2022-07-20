@@ -1,5 +1,8 @@
 # kazdream-task
 
+##### Run the program with the command:
+```make run``` or  ```go run cmd/main.go```
+
 ### Aims
 
 ### The aim of this exercise is to test your ability to write a working program in Go.
